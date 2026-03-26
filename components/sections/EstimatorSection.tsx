@@ -25,8 +25,9 @@ export const COST_SAVING_EVIDENCE = {
 };
 
 export default function EstimatorSection() {
-  const [planType, setPlanType] = useState<'hp' | 'dx' | 'ai'>('dx');
+  const [planType, setPlanType] = useState<'hp' | 'dx' | 'ai' | 'auto_only'>('dx');
   const [aiLevel, setAiLevel] = useState<'partial' | 'standard' | 'full'>('standard');
+  const [autoOnlyValue, setAutoOnlyValue] = useState(40); // 20万〜100万のレンジ (Default 40万)
   const [calculatedTotal, setCalculatedTotal] = useState(0);
   const [calculatedMonthly, setCalculatedMonthly] = useState(0);
   
@@ -34,29 +35,36 @@ export default function EstimatorSection() {
     let total = 40; // 基本HP制作 (Base)
     let monthly = 1.5;
 
-    // DXセット (+15万 / +1万)
-    if (planType === 'dx' || planType === 'ai') {
-      total += 15;
-      monthly += 1.0;
-    }
-
-    // AI自動化レベル (+Add-on)
-    if (planType === 'ai') {
-      if (aiLevel === 'partial') {
+    if (planType === 'auto_only') {
+      total = autoOnlyValue;
+      // 20万で保守2.0万、100万で保守5.0万のイメージ
+      monthly = 2.0 + ((autoOnlyValue - 20) * (3.0 / 80.0));
+    } else {
+      // DXセット (+15万 / +1万)
+      if (planType === 'dx' || planType === 'ai') {
         total += 15;
-        monthly += 0.5;
-      } else if (aiLevel === 'standard') {
-        total += 35;
         monthly += 1.0;
-      } else if (aiLevel === 'full') {
-        total += 70; // フルカスタマイズは 70万〜
-        monthly += 1.5; // 1.5万〜
+      }
+
+      // AI自動化レベル (+Add-on)
+      if (planType === 'ai') {
+        if (aiLevel === 'partial') {
+          total += 15;
+          monthly += 0.5;
+        } else if (aiLevel === 'standard') {
+          total += 35;
+          monthly += 1.0;
+        } else if (aiLevel === 'full') {
+          total += 70; // フルカスタマイズは 70万〜
+          monthly += 1.5; // 1.5万〜
+        }
       }
     }
 
     setCalculatedTotal(total);
-    setCalculatedMonthly(monthly);
-  }, [planType, aiLevel]);
+    // 小数第1位までに丸める
+    setCalculatedMonthly(Number(monthly.toFixed(1)));
+  }, [planType, aiLevel, autoOnlyValue]);
 
   // 他社平均（総予算に対する独自のざっくり乗数として約1.5倍で算出→ SystemBookが2/3のコストを表現）
   const competitorAverage = Math.round(calculatedTotal * 1.5);
@@ -96,15 +104,15 @@ export default function EstimatorSection() {
               パッケージの選択
             </h3>
             
-            {/* 3 Steps Plan Selection */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            {/* 4 Steps Plan Selection */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-10">
               <button 
                 onClick={() => setPlanType('hp')}
                 className={`text-left p-4 rounded-xl border-2 transition-all ${planType === 'hp' ? 'border-gold bg-gold/5 shadow-md' : 'border-gray-200 hover:border-gold/50'}`}
               >
                 <div className="text-xs font-bold text-gray-400 mb-1">Base</div>
                 <div className="font-bold text-midnight mb-2 text-lg">基本HP制作</div>
-                <div className="text-xs text-gray-500 leading-relaxed">高品質なコーポレートサイトの構築と保守</div>
+                <div className="text-xs text-gray-500 leading-relaxed">高品質なコーポレートサイト</div>
               </button>
               
               <button 
@@ -112,11 +120,11 @@ export default function EstimatorSection() {
                 className={`relative text-left p-4 rounded-xl border-2 transition-all ${planType === 'dx' ? 'border-gold bg-gold/5 shadow-md' : 'border-gray-200 hover:border-gold/50'}`}
               >
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">
-                  RECOMMEND (セット割)
+                  RECOMMEND
                 </div>
                 <div className="text-xs font-bold text-gold mb-1">Standard</div>
                 <div className="font-bold text-midnight mb-2 text-lg">DXセット</div>
-                <div className="text-xs text-gray-500 leading-relaxed">HP ＋ 予約・問診システムの完全統合</div>
+                <div className="text-xs text-gray-500 leading-relaxed">HP ＋ 予約・問診統合</div>
               </button>
 
               <button 
@@ -125,52 +133,58 @@ export default function EstimatorSection() {
               >
                 <div className="text-xs font-bold text-gray-400 mb-1">Premium</div>
                 <div className="font-bold text-midnight mb-2 text-lg">AIフル実装</div>
-                <div className="text-xs text-gray-500 leading-relaxed">DXセット ＋ n8nによる周辺業務自動化</div>
+                <div className="text-xs text-gray-500 leading-relaxed">DXセット ＋ 業務自動化</div>
+              </button>
+
+              <button 
+                onClick={() => setPlanType('auto_only')}
+                className={`text-left p-4 rounded-xl border-2 transition-all ${planType === 'auto_only' ? 'border-gold bg-gold/5 shadow-md' : 'border-gray-200 hover:border-gold/50'}`}
+              >
+                <div className="text-xs font-bold text-gray-400 mb-1">Custom Unit</div>
+                <div className="font-bold text-midnight mb-2 text-lg">自動化単体</div>
+                <div className="text-xs text-gray-500 leading-relaxed">既存HPへの連携・自動化のみ構築</div>
               </button>
             </div>
 
-            {/* Sub-slider strictly for AI level */}
-            {planType === 'ai' && (
+            {/* Sub-slider strictly for Auto-only level */}
+            {planType === 'auto_only' && (
               <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="flex justify-between items-end mb-6">
                   <div>
-                    <div className="font-bold text-midnight mb-1">AI業務自動化レベルの詳細</div>
-                    <div className="text-sm text-gray-500">FAX処理、カルテ転記、リマインド等のカバー範囲</div>
+                    <div className="font-bold text-midnight mb-1">自動化の規模（ご予算感）</div>
+                    <div className="text-sm text-gray-500">自動化したい業務の範囲に合わせて調整してください</div>
                   </div>
+                  <div className="text-2xl font-bold text-gold">{autoOnlyValue}万円</div>
                 </div>
                 
                 <input 
                   type="range" 
-                  min="0" 
-                  max="2" 
-                  value={aiLevel === 'partial' ? 0 : aiLevel === 'standard' ? 1 : 2}
-                  onChange={(e) => {
-                    const val = Number(e.target.value);
-                    if (val === 0) setAiLevel('partial');
-                    else if (val === 1) setAiLevel('standard');
-                    else setAiLevel('full');
-                  }}
+                  min="20" 
+                  max="100" 
+                  step="10"
+                  value={autoOnlyValue}
+                  onChange={(e) => setAutoOnlyValue(Number(e.target.value))}
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gold relative z-10"
                 />
                 
                 <div className="flex justify-between text-xs text-gray-400 mt-3 font-bold px-1 mb-5">
-                  <span className={aiLevel === 'partial' ? 'text-gold' : ''}>一部自動化</span>
-                  <span className={aiLevel === 'standard' ? 'text-gold' : ''}>標準パッケージ</span>
-                  <span className={aiLevel === 'full' ? 'text-gold' : ''}>フルカスタマイズ</span>
+                  <span className={autoOnlyValue === 20 ? 'text-gold' : ''}>小規模 (20万)</span>
+                  <span className={autoOnlyValue === 60 ? 'text-gold' : ''}>標準 (60万)</span>
+                  <span className={autoOnlyValue === 100 ? 'text-gold' : ''}>部門DX (100万)</span>
                 </div>
 
                 <div className="bg-white border border-gold/20 rounded-lg p-4 text-sm text-midnight font-bold leading-relaxed shadow-sm flex items-start gap-3">
                   <Check className="w-5 h-5 text-gold shrink-0 mt-0.5" />
-                  {aiValueDesc}
+                  「既存のホームページ等に対し、予約転記・通知・PDF発行などの裏側業務のみを外付けのn8nでAPI接続し自動化するプランです。」
                 </div>
               </div>
             )}
             
-            {planType !== 'ai' && (
+            {planType === 'hp' || planType === 'dx' ? (
               <div className="h-24 flex items-center justify-center text-sm text-gray-400 italic">
-                ※「AIフル実装」を選択すると、さらに高度な業務自動化カスタマイズが可能です。
+                ※「AIフル実装」または「自動化単体」を選択すると、さらに高度な業務自動化カスタマイズが可能です。
               </div>
-            )}
+            ) : null}
           </div>
 
           {/* Result Area */}
@@ -191,27 +205,44 @@ export default function EstimatorSection() {
                   <span className="text-5xl lg:text-6xl font-black text-midnight font-serif tracking-tighter">
                     {calculatedTotal}
                   </span>
-                  <span className="text-xl font-bold text-midnight">万円 <span className="text-gray-500 text-sm font-normal">{planType === 'ai' && aiLevel === 'full' ? '〜' : ''}</span></span>
+                  <span className="text-xl font-bold text-midnight">万円 <span className="text-gray-500 text-sm font-normal">{(planType === 'ai' && aiLevel === 'full') || planType === 'auto_only' ? '〜' : ''}</span></span>
                 </div>
                 
-                <div className="relative group cursor-help inline-flex items-center gap-2 text-gold font-bold text-sm bg-gold/10 px-3 py-1.5 rounded-full mb-8">
-                  <TrendingDown className="w-4 h-4" />
-                  セット導入で 約 {discountAmount}万円 お得
-                  <Info className="w-4 h-4" />
-                  
-                  {/* Tooltip Content */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-0 mt-3 w-72 lg:w-80 bg-midnight border border-gold/30 p-4 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 pointer-events-none text-left">
-                    <div className="font-bold text-white mb-2 text-xs">【他社比 約33%OFFの理由】</div>
-                    <div className="text-[11px] font-normal text-platinum/90 leading-relaxed">
-                      本サービスは、従来の大手メーカーが多額のコストを投じている「営業人件費」や「保守センターの維持費」を排除し、最新のAI自動化技術（n8n）とサーバーレスインフラに置き換えています。これにより、品質を担保したまま導入・運用コストを業界平均の2/3に抑えています。
+                {planType !== 'auto_only' && (
+                  <div className="relative group cursor-help inline-flex items-center gap-2 text-gold font-bold text-sm bg-gold/10 px-3 py-1.5 rounded-full mb-8">
+                    <TrendingDown className="w-4 h-4" />
+                    セット導入で 約 {discountAmount}万円 お得
+                    <Info className="w-4 h-4" />
+                    
+                    {/* Tooltip Content */}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-0 mt-3 w-72 lg:w-80 bg-midnight border border-gold/30 p-4 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 pointer-events-none text-left">
+                      <div className="font-bold text-white mb-2 text-xs">【他社比 約33%OFFの理由】</div>
+                      <div className="text-[11px] font-normal text-platinum/90 leading-relaxed">
+                        本サービスは、従来の大手メーカーが多額のコストを投じている「営業人件費」や「保守センターの維持費」を排除し、最新のAI自動化技術（n8n）とサーバーレスインフラに置き換えています。これにより、品質を担保したまま導入・運用コストを業界平均の2/3に抑えています。
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
+                {planType === 'auto_only' && (
+                  <div className="relative group cursor-help inline-flex items-center gap-2 text-gold font-bold text-sm bg-gold/10 px-3 py-1.5 rounded-full mb-8">
+                    <TrendingDown className="w-4 h-4" />
+                    業界平均より 約33% コスト削減
+                    <Info className="w-4 h-4" />
+                    
+                    {/* Tooltip Content */}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-0 mt-3 w-72 lg:w-80 bg-midnight border border-gold/30 p-4 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 pointer-events-none text-left">
+                      <div className="font-bold text-white mb-2 text-xs">【独自の非侵襲アプローチ】</div>
+                      <div className="text-[11px] font-normal text-platinum/90 leading-relaxed">
+                        電子カルテ本体への高額な改修を伴わず、周辺業務（予約、通知、FAX読み取りなど）を外付けのn8nでAPI接続する「非侵襲（ひしんしゅう）」方式を採用。これにより相場の2/3の価格での提供を実現しています。
+                      </div>
+                    </div>
+                  </div>
+                )}
                 
                 <div className="border-t border-gray-200 pt-6">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-gray-600 font-bold">月額保守・運用費</span>
-                    <span className="text-xl font-bold text-midnight">{calculatedMonthly} <span className="text-sm text-gray-500 font-normal">万円/月 {planType === 'ai' && aiLevel === 'full' ? '〜' : ''}</span></span>
+                    <span className="text-xl font-bold text-midnight">{calculatedMonthly} <span className="text-sm text-gray-500 font-normal">万円/月 {(planType === 'ai' && aiLevel === 'full') || planType === 'auto_only' ? '〜' : ''}</span></span>
                   </div>
                   <div className="text-[11px] text-gray-500 leading-relaxed mb-6">
                     ※ サーバー維持費、AI API利用料、死活監視、セキュリティ更新を含みます。<br />
@@ -248,7 +279,7 @@ export default function EstimatorSection() {
                     )}
                     
                     {/* AI Automation Evidence */}
-                    {planType === 'ai' && (
+                    {(planType === 'ai' || planType === 'auto_only') && (
                       <a href={COST_SAVING_EVIDENCE.automation.link} target="_blank" rel="noopener noreferrer" className="block bg-white p-3 rounded border border-gray-100 shadow-sm hover:border-gold/50 transition-colors group">
                         <div className="flex justify-between items-start">
                           <div className="text-xs font-bold text-midnight mb-1">{COST_SAVING_EVIDENCE.automation.title}</div>
