@@ -53,7 +53,9 @@ export default function EstimatorSection() {
   if (automationLevel < 35) {
     automationValueDesc = "「単純な転記ミスをゼロに。月間約10時間の事務工数を削減。」";
   } else if (automationLevel < 70) {
-    automationValueDesc = "「予約から問診までを全自動化。受付スタッフ1名分の負荷を大幅軽減。」";
+    automationValueDesc = reservation
+      ? "「予約から問診までを全自動化。受付スタッフ1名分の負荷を大幅軽減。」"
+      : "「日々のバックオフィス業務を広範に自動化。受付スタッフの負荷を大幅軽減。」";
   } else {
     automationValueDesc = "「貴院独自の複雑なワークフローをAIが完全再現。クリニック全体のDXを実現。」";
   }
