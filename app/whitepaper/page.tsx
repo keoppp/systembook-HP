@@ -5,6 +5,8 @@ import {
   Map, Server, Lock, AlertTriangle, ArrowRight 
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import ResponsibilityDiagram from '@/components/diagrams/ResponsibilityDiagram';
+import ArchitectureDiagram from '@/components/diagrams/ArchitectureDiagram';
 
 const sections = [
   { id: 'introduction', title: '1. はじめに（基本姿勢）', icon: <FileText className="w-4 h-4" /> },
@@ -182,12 +184,7 @@ export default function WhitepaperPage() {
                 </table>
               </div>
 
-              {/* Diagram Placeholder */}
-              <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl p-8 flex flex-col items-center justify-center text-center text-gray-500 my-8 Aspect-video min-h-[300px]">
-                <Map className="w-12 h-12 mb-4 text-gray-400 opacity-50" />
-                <span className="font-bold mb-2">【図解プレースホルダー】</span>
-                <span className="text-sm">責任分界点モデル図（3層構造の視覚化）をここに挿入します。</span>
-              </div>
+              <ResponsibilityDiagram />
             </section>
 
             {/* 3. 確認事項 */}
@@ -283,12 +280,7 @@ export default function WhitepaperPage() {
                 </table>
               </div>
 
-              {/* Diagram Placeholder */}
-              <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl p-8 flex flex-col items-center justify-center text-center text-gray-500 min-h-[300px]">
-                <ShieldCheck className="w-12 h-12 mb-4 text-gray-400 opacity-50" />
-                <span className="font-bold mb-2">【図解プレースホルダー】</span>
-                <span className="text-sm">ゼロトラスト・ネットワークアーキテクチャ図（Cloudflare→AWS→オンプレEHR）</span>
-              </div>
+              <ArchitectureDiagram />
             </section>
 
             {/* 5. e文書法 */}
