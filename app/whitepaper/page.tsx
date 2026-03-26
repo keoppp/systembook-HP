@@ -124,16 +124,16 @@ export default function WhitepaperPage() {
               <div className="space-y-6 text-gray-700 leading-relaxed text-sm md:text-base">
                 <h3 className="font-bold text-midnight text-lg">■ 準拠宣言</h3>
                 <p>
-                  当事業者は、以下のガイドライン・法令を遵守し、医療データの機密性・完全性・可用性を担保することを宣言します。
+                  当事業者は、以下のガイドライン・法令を遵守し、医療データの機密性・完全性・可用性を担保することを宣言します <span className="text-gray-400 text-xs">[cite: 287-288]</span>。
                 </p>
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-100 space-y-4">
                   <div>
                     <strong className="text-midnight block mb-1">経済産業省・総務省:</strong>
-                    「医療情報を取り扱う情報システム・サービスの提供事業者における安全管理ガイドライン（第1版）」
+                    「医療情報を取り扱う情報システム・サービスの提供事業者における安全管理ガイドライン（第1版）」 <span className="text-gray-400 text-xs">[cite: 290, 322]</span>
                   </div>
                   <div>
                     <strong className="text-midnight block mb-1">厚生労働省:</strong>
-                    「医療情報システムの安全管理に関するガイドライン（第6.0版）」
+                    「医療情報システムの安全管理に関するガイドライン（第6.0版）」 <span className="text-gray-400 text-xs">[cite: 291, 320]</span>
                   </div>
                   <div>
                     <strong className="text-midnight block mb-1">個人情報保護法:</strong>
@@ -167,18 +167,18 @@ export default function WhitepaperPage() {
                   <tbody>
                     <tr className="border-b border-gray-100">
                       <td className="px-6 py-5 bg-gray-50 font-bold border-r border-gray-100">AWS (Amazon Web Services)</td>
-                      <td className="px-6 py-5">インフラ層：物理的保護、基盤維持、サーバーハードウェアの廃棄管理</td>
+                      <td className="px-6 py-5">インフラ層：物理的保護、基盤維持、サーバーハードウェアの廃棄管理 <span className="text-gray-400 text-[10px]">[cite: 297]</span></td>
                     </tr>
                     <tr className="border-b border-gray-100">
                       <td className="px-6 py-5 bg-gold/5 font-bold border-r border-gray-100 text-midnight">
                         当事業者 (SystemBook Medical)<br/>
                         <span className="text-xs font-normal text-gray-500">インシデント責任：田崎 健斗</span>
                       </td>
-                      <td className="px-6 py-5 bg-gold/5">アプリ・プラットフォーム層：n8n環境維持、Cloudflare設定、データ管理アルゴリズム設計、情報漏えい時の事故対応と報告</td>
+                      <td className="px-6 py-5 bg-gold/5">アプリ・プラットフォーム層：n8n環境維持、Cloudflare設定、データ管理アルゴリズム設計、情報漏えい時の事故対応と報告 <span className="text-gray-400 text-[10px]">[cite: 297]</span></td>
                     </tr>
                     <tr>
                       <td className="px-6 py-5 bg-gray-50 font-bold border-r border-gray-100 rounded-bl-lg">医療機関 (導入クリニック)</td>
-                      <td className="px-6 py-5">端末・ID管理層：院内PCのウイルス対策、スタッフのID/PW管理、職員教育、患者への個人情報取扱同意の取得</td>
+                      <td className="px-6 py-5">端末・ID管理層：院内PCのウイルス対策、スタッフのID/PW管理、職員教育、患者への個人情報取扱同意の取得 <span className="text-gray-400 text-[10px]">[cite: 300]</span></td>
                     </tr>
                   </tbody>
                 </table>
@@ -259,12 +259,12 @@ export default function WhitepaperPage() {
                     <tr>
                       <td className="px-4 py-3 border border-gray-200 font-bold">外部からの不正アクセス</td>
                       <td className="px-4 py-3 border border-gray-200 text-center text-blue-600 font-bold">低減</td>
-                      <td className="px-4 py-3 border border-gray-200">Cloudflare Tunnel (Origin Cloaking)、強制的な多要素認証 (MFA) の導入</td>
+                      <td className="px-4 py-3 border border-gray-200">Cloudflare Tunnel (Origin Cloaking) <span className="text-gray-400 text-[10px]">[cite: 368-372, 464-465]</span>、強制的な多要素認証 (MFA) の導入</td>
                     </tr>
                     <tr>
                       <td className="px-4 py-3 border border-gray-200 font-bold">ランサムウェアによるデータ暗号化・破壊</td>
                       <td className="px-4 py-3 border border-gray-200 text-center text-blue-600 font-bold">低減</td>
-                      <td className="px-4 py-3 border border-gray-200">AWS Backup Vault Lock による WORM (Write Once Read Many) 型の不変バックアップ</td>
+                      <td className="px-4 py-3 border border-gray-200">AWS Backup Vault Lock による WORM (Write Once Read Many) 型の不変バックアップ <span className="text-gray-400 text-[10px]">[cite: 378, 475, 606]</span></td>
                     </tr>
                     <tr>
                       <td className="px-4 py-3 border border-gray-200 font-bold">内部犯行によるデータ持ち出し・改ざん</td>
@@ -291,23 +291,23 @@ export default function WhitepaperPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl">
                   <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-midnight font-bold">真</div>
-                  <h3 className="font-bold text-midnight mb-2">真正性 (Authenticity)</h3>
+                  <h3 className="font-bold text-midnight mb-2">真正性 (Authenticity) <span className="text-gray-400 font-normal text-xs">[cite: 596]</span></h3>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    システム操作、APIコール、バッチ処理のすべてにおいて AWS CloudWatch Logs 等に「誰が・いつ・何をしたか」を自動記録し、不変状態で保存・監視します。
+                    システム操作、APIコール、バッチ処理のすべてにおいて AWS CloudWatch Logs 等に「誰が・いつ・何をしたか」を自動記録し、不変状態で保存・監視します。 <span className="text-gray-400 text-xs">[cite: 597-598]</span>
                   </p>
                 </div>
                 <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl">
                   <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-midnight font-bold">見</div>
-                  <h3 className="font-bold text-midnight mb-2">見読性 (Readability)</h3>
+                  <h3 className="font-bold text-midnight mb-2">見読性 (Readability) <span className="text-gray-400 font-normal text-xs">[cite: 599]</span></h3>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    監査・証跡が必要な際、標準ブラウザを通じて即座に検索・閲覧できるUIボードを提供します。サーバーはマルチAZ構成により高い可用性を確保します。
+                    監査・証跡が必要な際、標準ブラウザを通じて即座に検索・閲覧できるUIボードを提供します。サーバーはマルチAZ構成により高い可用性を確保します。 <span className="text-gray-400 text-xs">[cite: 600-603]</span>
                   </p>
                 </div>
                 <div className="bg-gray-50 border border-gray-200 p-6 rounded-xl">
                   <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-midnight font-bold">保</div>
-                  <h3 className="font-bold text-midnight mb-2">保存性 (Preservation)</h3>
+                  <h3 className="font-bold text-midnight mb-2">保存性 (Preservation) <span className="text-gray-400 font-normal text-xs">[cite: 604]</span></h3>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    法律に基づく診療録等の保存期間（原則5年以上）に対応するため、自動アーカイブおよびランサムウェアに耐性のある不変バックアップを標準運用します。
+                    法律に基づく診療録等の保存期間（原則5年以上）に対応するため、自動アーカイブおよびランサムウェアに耐性のある不変バックアップを標準運用します。<span className="text-gray-400 text-xs">[cite: 605-606]</span>
                   </p>
                 </div>
               </div>
@@ -367,6 +367,18 @@ export default function WhitepaperPage() {
                 </div>
               </div>
             </section>
+
+            {/* CTA Footer requested by user */}
+            <div className="bg-midnight p-8 md:p-12 rounded-2xl border border-gold/20 text-center mt-16 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+              <p className="mb-8 text-platinum/90 leading-relaxed max-w-2xl mx-auto">
+                詳細な「ガイドライン準拠回答集」および「設定エビデンス集」は別途提供いたします <span className="text-gray-500 text-xs">[cite: 446]</span>。
+              </p>
+              <a href="/#contact" className="inline-flex items-center justify-center px-8 py-4 bg-gold hover:bg-gold-hover text-white font-bold rounded-sm transition-colors shadow-lg shadow-gold/20 group">
+                導入・詳細資料について問い合わせる
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
 
           </main>
         </div>
