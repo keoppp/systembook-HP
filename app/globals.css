@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #FFFFFF;
+    --foreground: #111827;
+    
+    /* SystemBook Medical Brand Colors */
+    --color-midnight: #0A1628;  /* Base Navy */
+    --color-midnight-light: #142238; /* Secondary Dark Navy */
+    --color-platinum: #C0C8D4;  /* Accent Silver */
+    --color-gold: #B8A47E;      /* Accent Gold */
+    --color-gold-hover: #9E8B65;
+    
+    --color-gray-50: #F9FAFB;
+    --color-gray-100: #F3F4F6;
+    --color-gray-200: #E5E7EB;
+    --color-gray-500: #6B7280;
+    --color-gray-800: #1F2937;
+    
+    /* UI Elements */
+    --border-color: var(--color-gray-200);
+  }
+
+  /* Override dark mode to maintain luxury corporate feel or implement specific dark mode tokens if needed */
+  .dark {
+    --background: #0A1628;
+    --foreground: #F3F4F6;
+    --border-color: #1F2937;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-gold selection:text-white;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Serif JP', serif;
+  }
+}
+
+@layer utilities {
+  .heading-serif {
+    font-family: 'Noto Serif JP', serif;
+  }
+  
+  .text-midnight { color: var(--color-midnight); }
+  .bg-midnight { background-color: var(--color-midnight); }
+  .border-midnight { border-color: var(--color-midnight); }
+
+  .text-midnight-light { color: var(--color-midnight-light); }
+  .bg-midnight-light { background-color: var(--color-midnight-light); }
+  
+  .text-platinum { color: var(--color-platinum); }
+  .bg-platinum { background-color: var(--color-platinum); }
+  
+  .text-gold { color: var(--color-gold); }
+  .bg-gold { background-color: var(--color-gold); }
+  .border-gold { border-color: var(--color-gold); }
+  .hover\:bg-gold-hover:hover { background-color: var(--color-gold-hover); }
+
+  /* Professional spacing for corporate sections */
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Animations for Before/After */
+@keyframes slideReveal {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: slideReveal 0.6s ease-out forwards;
+}
