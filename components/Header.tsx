@@ -29,12 +29,12 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="#benefits" className="text-platinum hover:text-white transition-colors text-sm font-medium tracking-wide">導入のメリット</Link>
-          <Link href="#security" className="text-platinum hover:text-white transition-colors text-sm font-medium tracking-wide">セキュリティ</Link>
-          <Link href="#roadmap" className="text-platinum hover:text-white transition-colors text-sm font-medium tracking-wide">展望</Link>
-          <Link href="#profile" className="text-platinum hover:text-white transition-colors text-sm font-medium tracking-wide">代表挨拶</Link>
+          <Link href="/#benefits" className="text-platinum hover:text-white transition-colors text-sm font-medium tracking-wide">導入のメリット</Link>
+          <Link href="/#security" className="text-platinum hover:text-white transition-colors text-sm font-medium tracking-wide">セキュリティ</Link>
+          <Link href="/whitepaper" className="text-platinum hover:text-white transition-colors text-sm font-medium tracking-wide">ホワイトペーパー</Link>
+          <Link href="/#profile" className="text-platinum hover:text-white transition-colors text-sm font-medium tracking-wide">代表挨拶</Link>
           
-          <Link href="#estimate" className="bg-gold hover:bg-gold-hover text-white px-6 py-2.5 rounded-sm font-bold text-sm transition-colors flex items-center gap-2">
+          <Link href="/#estimate" className="bg-gold hover:bg-gold-hover text-white px-6 py-2.5 rounded-sm font-bold text-sm transition-colors flex items-center gap-2">
             AI即時見積もり <ChevronRight className="w-4 h-4" />
           </Link>
         </nav>
@@ -51,10 +51,10 @@ export default function Header() {
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-midnight-light border-t border-gray-800 shadow-xl py-4 flex flex-col">
-          <Link href="#benefits" onClick={() => setMobileMenuOpen(false)} className="px-6 py-4 text-platinum hover:bg-midnight hover:text-white transition-colors border-b border-gray-800">導入のメリット</Link>
-          <Link href="#security" onClick={() => setMobileMenuOpen(false)} className="px-6 py-4 text-platinum hover:bg-midnight hover:text-white transition-colors border-b border-gray-800">セキュリティ・トラスト</Link>
-          <Link href="#roadmap" onClick={() => setMobileMenuOpen(false)} className="px-6 py-4 text-platinum hover:bg-midnight hover:text-white transition-colors border-b border-gray-800">開発ロードマップ</Link>
-          <Link href="#profile" onClick={() => setMobileMenuOpen(false)} className="px-6 py-4 text-platinum hover:bg-midnight hover:text-white transition-colors border-b border-gray-800">代表プロフィール</Link>
+          <Link href="/#benefits" onClick={() => setMobileMenuOpen(false)} className="px-6 py-4 text-platinum hover:bg-midnight hover:text-white transition-colors border-b border-gray-800">導入のメリット</Link>
+          <Link href="/#security" onClick={() => setMobileMenuOpen(false)} className="px-6 py-4 text-platinum hover:bg-midnight hover:text-white transition-colors border-b border-gray-800">セキュリティ・トラスト</Link>
+          <Link href="/whitepaper" onClick={() => setMobileMenuOpen(false)} className="px-6 py-4 text-gold font-bold hover:bg-midnight hover:text-white transition-colors border-b border-gray-800">安全管理ホワイトペーパー</Link>
+          <Link href="/#profile" onClick={() => setMobileMenuOpen(false)} className="px-6 py-4 text-platinum hover:bg-midnight hover:text-white transition-colors border-b border-gray-800">代表プロフィール</Link>
           <div className="p-6">
             <Link href="#estimate" onClick={() => setMobileMenuOpen(false)} className="w-full bg-gold hover:bg-gold-hover text-white px-6 py-3 rounded-sm font-bold transition-colors flex items-center justify-center gap-2">
               AI即時見積もり

@@ -37,6 +37,7 @@ export default function Footer() {
               <li><Link href="/privacy#policy" className="hover:text-white transition-colors">プライバシーポリシー</Link></li>
               <li><Link href="/privacy#terms" className="hover:text-white transition-colors">利用規約</Link></li>
               <li><Link href="/privacy#law" className="hover:text-white transition-colors">特定商取引法に基づく表記</Link></li>
+              <li><Link href="/whitepaper" className="hover:text-white transition-colors text-gold">安全管理ホワイトペーパー</Link></li>
             </ul>
           </div>
           
