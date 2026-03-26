@@ -1,7 +1,25 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calculator, Check, ArrowRight, TrendingDown, Info } from 'lucide-react';
+import { Calculator, Check, ArrowRight, TrendingDown, Info, ShieldCheck } from 'lucide-react';
+
+export const COST_SAVING_EVIDENCE = {
+  reservation: {
+    title: "予約システムの合理化",
+    reason: "LINE/Web直結の自動受付により、窓口での電話対応コストをゼロに。 [cite: 587]",
+    guideline: "見読性・可用性の確保 [cite: 600-603]"
+  },
+  automation: {
+    title: "n8nによる業務自動化",
+    reason: "n8n活用で開発工数を約50%削減。中間データの即時物理削除で保管費抑制。 [cite: 344-345]",
+    guideline: "真正性・情報の揮発性担保 [cite: 597-598]"
+  },
+  infrastructure: {
+    title: "次世代基盤の標準化",
+    reason: "Cloudflare Tunnelにより、高価な専用回線コストを排除。 [cite: 368-372]",
+    guideline: "3省庁2ガイドライン完全準拠 [cite: 281]"
+  }
+};
 
 export default function EstimatorSection() {
   const [reservation, setReservation] = useState(true); // Default 20万
@@ -156,9 +174,33 @@ export default function EstimatorSection() {
                   <span className="text-gray-600 font-bold">月額保守・運用費</span>
                   <span className="text-xl font-bold text-midnight">{calculatedMonthly} <span className="text-sm text-gray-500 font-normal">万円/月</span></span>
                 </div>
-                <div className="text-xs text-gray-500 leading-relaxed">
+                <div className="text-xs text-gray-500 leading-relaxed mb-6">
                   ※ n8nサーバー維持費、AIエージェントAPI利用料、システム監視、セキュリティアップデートを含みます。<br />
                   ※ 正確な金額はヒアリング後に算出いたします。
+                </div>
+
+                {/* 動的エビデンスリスト */}
+                <div className="space-y-3">
+                  <div className="text-xs font-bold text-gray-500 tracking-widest uppercase mb-1 flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3" />
+                    今回の削減根拠リスト
+                  </div>
+                  {reservation && (
+                    <div className="bg-white p-3 rounded border border-gray-100 shadow-sm">
+                      <div className="text-xs font-bold text-midnight mb-1">{COST_SAVING_EVIDENCE.reservation.title}</div>
+                      <div className="text-[10px] text-gray-500">{COST_SAVING_EVIDENCE.reservation.reason}</div>
+                    </div>
+                  )}
+                  {automationLevel > 0 && (
+                    <div className="bg-white p-3 rounded border border-gray-100 shadow-sm">
+                      <div className="text-xs font-bold text-midnight mb-1">{COST_SAVING_EVIDENCE.automation.title}</div>
+                      <div className="text-[10px] text-gray-500">{COST_SAVING_EVIDENCE.automation.reason}</div>
+                    </div>
+                  )}
+                  <div className="bg-white p-3 rounded border border-gray-100 shadow-sm">
+                    <div className="text-xs font-bold text-midnight mb-1">{COST_SAVING_EVIDENCE.infrastructure.title}</div>
+                    <div className="text-[10px] text-gray-500">{COST_SAVING_EVIDENCE.infrastructure.reason}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -177,30 +219,34 @@ export default function EstimatorSection() {
         {/* Cost evidence */}
         <div className="max-w-5xl mx-auto mt-16 lg:mt-24">
           <div className="text-center mb-12">
-            <h4 className="text-gold font-bold mb-4 text-xl md:text-2xl">なぜ他社の2/3の価格で提供できるのか？</h4>
+            <h4 className="inline-block bg-gold/10 text-gold font-bold px-4 py-1.5 rounded-full text-sm mb-4 border border-gold/20">「非侵襲（ひしんしゅう）」の導入アプローチ</h4>
+            <h4 className="text-white font-bold mb-4 text-xl md:text-2xl">なぜ、既存のシステムより安くて安全なのか？</h4>
             <p className="text-platinum/90 text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
-              私たちは、膨大な改修費用がかかる「電子カルテ本体」にはあえて触れず、その周辺の<strong className="text-white">「隙間業務（FAX、予約、通知）」</strong>を外付けユニット（n8n）で自動化することに特化しています。<br className="hidden md:block"/>
-              この戦略的な絞り込みが、高い柔軟性と圧倒的な低価格の両立を実現しています。
+              私たちは、改修に数千万円単位のコストがかかる<strong className="text-gold">「電子カルテ本体」の改造は行いません。</strong><br className="hidden md:block"/>
+              その周辺にある「FAX処理」「予約転記」「患者通知」といったボトルネック（隙間業務）のみを、外付けユニットで自動化します。この<strong className="text-white">「最小限の介入」</strong>こそが、低価格・短期間・高セキュリティを実現する理由です。
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-midnight-light/50 p-6 md:p-8 rounded-xl border border-gray-800 hover:border-gold/30 transition-colors">
-              <h5 className="font-bold text-white mb-3 flex items-center gap-2"><span className="text-gold shrink-0">■</span> 開発工数</h5>
+              <h5 className="font-bold text-white mb-3 flex items-center gap-2 pb-3 border-b border-gray-800"><span className="text-gold shrink-0">■</span> 開発工数の劇的圧縮</h5>
+              <div className="text-xs text-gold mb-2 font-bold opacity-80">(n8n × ローコード設計)</div>
               <p className="text-sm text-platinum/70 leading-relaxed">
-                フルスクラッチ開発を廃止し、n8nによるビジュアルプログラミングを採用することで、設計・実装工数を約50%圧縮。
+                高額なフルスクラッチ開発を廃止し、自動化基盤「n8n」を活用することで、設計・実装工数を従来比で約50%削減しています。これにより、品質を落とさず初期費用を業界平均の2/3に抑えることが可能になりました。
               </p>
             </div>
             <div className="bg-midnight-light/50 p-6 md:p-8 rounded-xl border border-gray-800 hover:border-gold/30 transition-colors">
-              <h5 className="font-bold text-white mb-3 flex items-center gap-2"><span className="text-gold shrink-0">■</span> 運用人件費</h5>
+              <h5 className="font-bold text-white mb-3 flex items-center gap-2 pb-3 border-b border-gray-800"><span className="text-gold shrink-0">■</span> 24時間体制のAI自律運用</h5>
+              <div className="text-xs text-gold mb-2 font-bold opacity-80">(監視コストの排除)</div>
               <p className="text-sm text-platinum/70 leading-relaxed">
-                AIエージェントが24時間体制で1次サポートとシステム監視（トリアージ）を代行するため、大規模な保守・監視チームが不要。
+                大規模な有人コールセンターや監視チームを置かず、AIエージェントが24時間365日のシステム監視と1次トリアージを自動で行います。この「人件費の機械化」が月額保守料の低価格化に直結しています。
               </p>
             </div>
             <div className="bg-midnight-light/50 p-6 md:p-8 rounded-xl border border-gray-800 hover:border-gold/30 transition-colors">
-              <h5 className="font-bold text-white mb-3 flex items-center gap-2"><span className="text-gold shrink-0">■</span> インフラ固定費</h5>
+              <h5 className="font-bold text-white mb-3 flex items-center gap-2 pb-3 border-b border-gray-800"><span className="text-gold shrink-0">■</span> 固定資産ゼロ経営</h5>
+              <div className="text-xs text-gold mb-2 font-bold opacity-80">(クラウドネイティブ)</div>
               <p className="text-sm text-platinum/70 leading-relaxed">
-                自社ビルや自社物理サーバーを持たない完全クラウドネイティブ（AWS/Cloudflare）環境での運営により、莫大な維持管理コストを排除。
+                自社サーバーや物理的な拠点を保持しないSaaS型モデル（AWS/Cloudflare活用）を採用し、損益分岐点を極限まで低く抑えています。この財務構造の身軽さが、利用者への価格還元を支えています。
               </p>
             </div>
           </div>
