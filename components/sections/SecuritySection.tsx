@@ -14,11 +14,11 @@ export default function SecuritySection() {
               Security & Trust Center
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-midnight mb-6 heading-serif leading-tight">
-              医療情報を守る<br />堅牢なアーキテクチャ
+              セキュリティは<br />仕組みで守ります
             </h2>
             <div className="w-16 h-1 bg-gold mb-8"></div>
             <p className="text-lg text-gray-600 leading-relaxed mb-10">
-              個人情報保護管理者（CISO）の監督のもと、医療機関に求められる最高水準のセキュリティ要件に準拠。3省庁2ガイドラインを満たすシステム基盤を標準提供しています。
+              医療データを扱う以上、セキュリティは最も大切にしている部分です。厚労省・経産省・総務省の3省庁が定めるガイドラインに沿った設計を、すべてのプランに標準で組み込んでいます。
             </p>
 
             <div className="space-y-6">

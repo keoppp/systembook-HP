@@ -18,13 +18,14 @@ export default function BeforeAfterSection() {
     <section className="section-padding bg-midnight text-white overflow-hidden">
       <div className="container-wide">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-gold font-bold tracking-widest text-sm mb-4 inline-block">非侵襲的な導入手法</span>
+          <span className="text-gold font-bold tracking-widest text-sm mb-4 inline-block">電子カルテには触りません</span>
           <h2 className="text-3xl md:text-5xl font-bold mb-6 heading-serif">
-            既存の電子カルテは<br className="md:hidden" />そのままに。
+            今使っているシステムは<br className="md:hidden" />そのままで大丈夫です。
           </h2>
           <div className="w-16 h-1 bg-gold mx-auto mb-8"></div>
           <p className="text-lg text-platinum/90 leading-relaxed">
-            システム移行の巨大なリスクとコストは不要です。私たちは既存の電子カルテシステムには一切触れず、その周辺の「アナログな隙間」をAIとn8nでスマートに結合します。
+            電子カルテを入れ替える必要はありません。<br className="hidden md:block" />
+            カルテの周りにある「手作業の部分」だけをAIとn8nでつないで、自動化します。
           </p>
         </div>
 

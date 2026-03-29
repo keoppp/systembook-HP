@@ -19,14 +19,14 @@ export default function HeroSection() {
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 heading-serif">
-            システムに運用を<br />
-            合わせる時代は<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold to-platinum">終わりました。</span>
+            今のやり方は<br />
+            変えなくて<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold to-platinum">大丈夫です。</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-platinum/90 leading-relaxed font-light mb-12 max-w-2xl border-l-2 border-gold pl-6">
-            貴院の「やり方」をそのままに、AIとn8nで業務を最適化する。<br className="hidden md:block" />
-            医学生ならではの現場感覚で設計された、次世代のクリニック自動化。
+            電子カルテはそのまま。周りの面倒な事務作業だけ、<br className="hidden md:block" />
+            AIとn8nで自動化します。
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6">

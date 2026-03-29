@@ -305,13 +305,14 @@ export default function EstimatorSection() {
 
         {/* Cost evidence Rationale Footer */}
         <div className="max-w-4xl mx-auto mt-16 md:mt-24 text-center">
-          <h4 className="inline-block bg-gold/10 text-gold font-bold px-4 py-1.5 rounded-full text-sm mb-6 border border-gold/20">「非侵襲（ひしんしゅう）」の導入アプローチ</h4>
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">なぜ高品質な医療DXを2/3の価格で提供できるのか？</h3>
+          <h4 className="inline-block bg-gold/10 text-gold font-bold px-4 py-1.5 rounded-full text-sm mb-6 border border-gold/20">電子カルテには触りません</h4>
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">なぜ相場より安くできるのか</h3>
           <div className="bg-midnight-light/50 border border-gray-800 p-8 rounded-2xl">
             <p className="text-platinum/90 text-sm md:text-base leading-relaxed text-left md:text-center">
-              私たちは、開発工数が膨大にかかる「電子カルテ本体」の改造は行いません。<br className="hidden md:block"/>
-              自社サーバーを持たない<strong>サーバーレス構成（Vercel/Cloudflare）</strong>と、開発工数を劇的に削減する<strong>自動化基盤（n8n）</strong>を組み合わせたモダンなアーキテクチャを採用することで、「FAX処理」「予約転記」「患者通知」といった周辺のボトルネック業務に特化して介入します。<br className="hidden md:block"/><br className="hidden md:block"/>
-              これにより、医療情報ガイドラインを遵守した最高水準のセキュリティを維持しつつ、不要な中間コストを完全に排除しました。
+              電子カルテ本体の改造には数千万円かかることもありますが、僕たちはそこには手を出しません。<br className="hidden md:block"/>
+              自社サーバーを持たない<strong>クラウド構成（Vercel/Cloudflare）</strong>と、開発の手間を大幅に減らせる<strong>自動化ツール（n8n）</strong>を使って、<br className="hidden md:block"/>
+              FAXの処理や予約の転記、患者さんへの通知といった「周りの手作業」だけを自動化します。<br className="hidden md:block"/><br className="hidden md:block"/>
+              このやり方なら、医療情報のセキュリティガイドラインもきちんと守りながら、余計なコストを省くことができます。
             </p>
           </div>
         </div>

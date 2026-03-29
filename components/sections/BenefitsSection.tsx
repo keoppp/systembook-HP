@@ -3,23 +3,23 @@ import { Clock, ShieldAlert, HeartPulse, PiggyBank } from 'lucide-react';
 const benefits = [
   {
     icon: <Clock className="w-8 h-8 text-gold" />,
-    title: '残業代削減',
-    description: 'カルテ転記、FAX処理、予約管理などの単純な事務作業をAIが完全に肩代わり。スタッフの残業を本質的に削減します。'
+    title: '事務作業の時間を減らす',
+    description: 'カルテの転記やFAXの処理、予約の管理など、毎日繰り返す作業をAIに任せることで、スタッフの方の負担を軽くします。'
   },
   {
     icon: <ShieldAlert className="w-8 h-8 text-gold" />,
-    title: 'ヒューマンエラーゼロ',
-    description: 'n8nによるAPI連携でシステム間のデータ転記ミスを構造的に排除。医療安全の向上に直結します。'
+    title: '転記ミスをなくす',
+    description: 'システム同士をAPIでつないで、データを自動で受け渡し。手入力によるミスが起きにくい仕組みをつくります。'
   },
   {
     icon: <HeartPulse className="w-8 h-8 text-gold" />,
-    title: '24時間365日受付',
-    description: '休診日や夜間でも、AIエージェントが予約受付や一次問診を自動対応。患者満足度と機会損失の防止を両立。'
+    title: '夜間・休日も予約を受付',
+    description: '診療時間外でもAIが予約の受付や簡単な問い合わせに対応。「電話がつながらない」を減らせます。'
   },
   {
     icon: <PiggyBank className="w-8 h-8 text-gold" />,
-    title: '圧倒的な低コスト',
-    description: '最新のAIツールを活用して開発・運用を効率化。大手メーカー製品と比較して約2/3の導入・維持費用を実現。'
+    title: 'コストを抑えた導入',
+    description: '自社サーバーを持たない設計と、開発を効率化するツール（n8n）のおかげで、大手製品の約2/3の費用で提供できます。'
   }
 ];
 
@@ -29,11 +29,12 @@ export default function BenefitsSection() {
       <div className="container-wide">
         <div className="text-center max-w-3xl mx-auto mb-20 animate-slide-up">
           <h2 className="text-3xl md:text-5xl font-bold text-midnight mb-6 heading-serif">
-            人に依存しない、<br className="md:hidden" />確実なクリニック運営へ
+            スタッフの手が足りない、<br className="md:hidden" />を減らすために
           </h2>
           <div className="w-16 h-1 bg-gold mx-auto mb-8"></div>
           <p className="text-lg text-gray-600 leading-relaxed">
-            人手不足が深刻化する医療業界において、事務作業を「人に頼る」時代は終焉を迎えています。SystemBook Medicalの自動化ソリューションがもたらす4つの変革。
+            「人が足りない」「事務作業が多すぎる」。そんな声にお応えするために、<br className="hidden md:block" />
+            自動化できるところは自動化して、スタッフの方が本来の仕事に集中できるようにします。
           </p>
         </div>
 
