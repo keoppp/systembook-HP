@@ -25,8 +25,8 @@ export default function HeroSection() {
           </h1>
           
           <p className="text-xl md:text-2xl text-platinum/90 leading-relaxed font-light mb-12 max-w-2xl border-l-2 border-gold pl-6">
-            電子カルテはそのまま。周りの面倒な事務作業だけ、<br className="hidden md:block" />
-            AIとn8nで自動化します。
+            電子カルテはそのまま使えます。<br className="hidden md:block" />
+            まわりの事務作業だけ、静かに片付けます。
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6">

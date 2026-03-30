@@ -40,41 +40,33 @@ export default function ProfileSection() {
               Story & Vision
             </span>
             <h2 className="text-3xl md:text-5xl font-bold mb-8 heading-serif leading-tight">
-              医学部生が<br />
-              つくっています。
+              代表プロフィール
             </h2>
             
             <div className="space-y-6 text-platinum/90 text-lg leading-relaxed font-light">
               <p>
-                正直に言うと、僕はまだ医師免許を持っていません。神戸大学の医学部に通いながら、学生時代からプログラミングにのめり込んで、この事業を始めました。
+                子どものころ、身体が強い方ではなくて、病院に行く機会が人より多かったと思います。
               </p>
               
               <p>
-                実習で病院を回る中で「先生、まだFAXなんですか」「この転記作業、毎日やってるんですか」と驚くことが何度もありました。臨床のことはまだまだ勉強中ですが、「この手作業、自動化できるのに」と気づけるのは、プログラミングをやってきたからこそだと思っています。
+                待合室で待ちながら、診察室から出てくる先生や看護師さんをよく見ていました。患者さんに向き合いながら、合間にパタパタと書き物をして、電話が鳴ればすぐに対応して——それでも誰も文句ひとつ言わない。あの姿が、ずっと頭に残っています。
+              </p>
+              
+              <p>
+                医学部に入って、現場をより近くで見るようになって、忙しさの中身が少しわかってきました。診察そのものより、まわりの事務作業に追われている時間が思った以上に多いということも。
               </p>
               
               <div className="pl-6 border-l-2 border-gold py-2 my-8 space-y-4">
                 <p className="text-white font-medium">
-                  電子カルテ本体の改造はしません。<br />
-                  その周りの「手作業」だけを、外側から自動化する。<br />
-                  それが僕たちのアプローチです。
+                  自分にできることは何か、考えたときに出てきたのがこのサービスです。<br />
+                  医療の知識と、ITの仕組みと、現場への敬意を持って、<br />
+                  先生やスタッフの方の時間を、少しでも取り戻す手伝いができればと思っています。
                 </p>
               </div>
               
-              <p>
-                一人でやっているからこそ、セキュリティは仕組みで担保しています。3省庁2ガイドラインに準拠した設計、改ざんできないバックアップ（WORMストレージ）、操作ログの自動記録。「人の目」に頼らない監視体制を最初から組み込んでいます。
+              <p className="text-platinum/70 text-base">
+                代表　田崎 健斗（神戸大学医学部4年）
               </p>
-            </div>
-            
-            <div className="mt-12 flex gap-4 border-t border-gray-800 pt-8">
-              <div className="flex-1">
-                <div className="text-xs text-gray-500 mb-1">Expertise</div>
-                <div className="font-bold">医療ドメイン知識 × AI自動化技術</div>
-              </div>
-              <div className="flex-1">
-                <div className="text-xs text-gray-500 mb-1">Architecture</div>
-                <div className="font-bold">AntiGravity / Next.js / AWS</div>
-              </div>
             </div>
           </div>
           
