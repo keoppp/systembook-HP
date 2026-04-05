@@ -16,8 +16,8 @@ export default function Footer() {
               <span className="text-white text-2xl font-bold tracking-wider">SystemBook <span className="font-light">Medical</span></span>
             </Link>
             <p className="text-sm leading-relaxed max-w-sm mb-6 opacity-80">
-              システムに運用を合わせる時代は終わりました。<br />
-              貴院の「やり方」をそのままに、AIとn8nで業務を最適化する。医療情報ガイドライン完全準拠のセキュアな自動化ソリューション。
+              医療現場を知る開発者が、現場に寄り添うシステムを作ります。<br />
+              電子カルテはそのまま。周りの事務作業をAIとn8nで自動化する、ガイドライン準拠のソリューション。
             </p>
           </div>
           
@@ -27,7 +27,7 @@ export default function Footer() {
               <li><Link href="#benefits" className="hover:text-white transition-colors">導入のメリット</Link></li>
               <li><Link href="#security" className="hover:text-white transition-colors">セキュリティ・トラスト</Link></li>
               <li><Link href="#roadmap" className="hover:text-white transition-colors">開発ロードマップ</Link></li>
-              <li><Link href="#estimate" className="hover:text-white transition-colors">AI即時見積もり</Link></li>
+              <li><Link href="#estimate" className="hover:text-white transition-colors">料金プラン</Link></li>
             </ul>
           </div>
           

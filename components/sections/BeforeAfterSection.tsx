@@ -23,10 +23,18 @@ export default function BeforeAfterSection() {
             今使っているシステムは<br className="md:hidden" />そのままで大丈夫です。
           </h2>
           <div className="w-16 h-1 bg-gold mx-auto mb-8"></div>
-          <p className="text-lg text-platinum/90 leading-relaxed">
+          <p className="text-lg text-platinum/90 leading-relaxed mb-10">
             電子カルテを入れ替える必要はありません。<br className="hidden md:block" />
             カルテの周りにある「手作業の部分」だけをAIとn8nでつないで、自動化します。
           </p>
+
+          {/* Emphasized Banner */}
+          <div className="max-w-2xl mx-auto bg-[#4A9EFF]/10 border-2 border-[#4A9EFF]/30 rounded-xl p-6 md:p-8 text-center">
+            <p className="text-lg md:text-xl text-white font-bold leading-relaxed">
+              今使っている電子カルテ・レセコンには手を加えません。<br className="hidden md:block" />
+              外側に予約・問診・事務の自動化を追加するだけです。
+            </p>
+          </div>
         </div>
 
         {/* Toggle Switch */}

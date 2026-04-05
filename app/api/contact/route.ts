@@ -1,44 +1,26 @@
 import { NextResponse } from 'next/server';
-import { triageMessage } from '@/lib/ai-agent';
 import nodemailer from 'nodemailer';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, message } = body;
+    const { clinicType, painPoints, clinicName, email, preferredDate1, preferredDate2 } = body;
 
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    // Server-side validation
+    if (!clinicType || !clinicName || !email || !preferredDate1) {
+      return NextResponse.json({ error: '必須項目を入力してください。' }, { status: 400 });
     }
 
-    // 1. AI Triage using Gemini
-    const priority = await triageMessage(message);
-    console.log(`[Contact Triage] Priority: ${priority} | From: ${name}`);
+    const painPointsText = Array.isArray(painPoints) && painPoints.length > 0
+      ? painPoints.join(' / ')
+      : '未選択';
 
-    // 2. Pushover Notification for Emergencies
-    if (priority === '緊急' && process.env.PUSHOVER_API_KEY && process.env.PUSHOVER_USER_KEY) {
-      try {
-        await fetch('https://api.pushover.net/1/messages.json', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            token: process.env.PUSHOVER_API_KEY,
-            user: process.env.PUSHOVER_USER_KEY,
-            title: `【緊急】システムの問い合わせ (${name}様)`,
-            message: `緊急性の高い問い合わせを受信しました。\n\n差出人: ${name}\nEmail: ${email}\n\n内容:\n${message}`,
-            priority: 1, // High priority
-          })
-        });
-        console.log('[Contact Triage] Sent emergency push notification.');
-      } catch (e) {
-        console.error('Failed to send Pushover notification:', e);
-      }
-    }
+    const dateText = preferredDate2
+      ? `第1希望: ${preferredDate1}\n  第2希望: ${preferredDate2}`
+      : `第1希望: ${preferredDate1}`;
 
-    // 3. Send Email to Representative (tasaki@systembook-medical.com)
-    console.log('[Contact Backend] Sending email to tasaki@systembook-medical.com');
-    
-    // Check if SMTP credentials exist, otherwise skip actual sending to avoid crash in local dev without env
+    console.log(`[Zoom Demo] New booking request from: ${clinicName} (${clinicType})`);
+
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST || 'smtp.gmail.com',
@@ -50,69 +32,60 @@ export async function POST(req: Request) {
         },
       });
 
-      const mailOptions = {
-        from: `"SystemBook HP 自動送信" <${process.env.SMTP_USER}>`,
+      await transporter.sendMail({
+        from: `"SystemBook HP" <${process.env.SMTP_USER}>`,
         to: 'tasaki@systembook-medical.com',
         replyTo: email,
-        subject: `[SystemBook-HP] 新規問い合わせ: ${name}様 (判定: ${priority})`,
+        subject: `[Zoomデモ予約] ${clinicName}様 (${clinicType})`,
         text: `
-【SystemBook Medical 公式HPからの問い合わせ】
+【Zoomデモ予約申込み】
 
-AIトリアージ判定: ${priority}
+■ クリニック情報
+  診療科: ${clinicType}
+  クリニック名: ${clinicName}
+  メールアドレス: ${email}
 
-■ お客様情報
-お名前: ${name}
-Email: ${email}
-送信日時: ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}
+■ 課題（選択された業務）
+  ${painPointsText}
 
-■ メッセージ内容
-${message}
+■ Zoom希望日時
+  ${dateText}
+
+■ 送信日時
+  ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}
         `,
         html: `
-<div style="font-family: sans-serif; max-w: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
   <div style="background-color: #0A1628; padding: 20px; color: white;">
-    <h2 style="margin: 0; font-size: 18px; color: #B8A47E;">【SystemBook Medical 公式HPからの問い合わせ】</h2>
+    <h2 style="margin: 0; font-size: 18px; color: #4A9EFF;">🎥 Zoomデモ予約申込み</h2>
   </div>
   <div style="padding: 24px;">
-    <p style="margin-top: 0;"><strong>AIトリアージ判定:</strong> <span style="background-color: ${priority === '緊急' ? '#fee2e2' : '#f1f5f9'}; color: ${priority === '緊急' ? '#dc2626' : '#475569'}; padding: 4px 8px; border-radius: 4px; font-weight: bold;">${priority}</span></p>
-    
-    <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; color: #0A1628;">■ お客様情報</h3>
+    <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; color: #0A1628;">■ クリニック情報</h3>
     <ul style="list-style-type: none; padding-left: 0;">
-      <li><strong>お名前:</strong> ${name} 様</li>
+      <li><strong>診療科:</strong> ${clinicType}</li>
+      <li><strong>クリニック名:</strong> ${clinicName}</li>
       <li><strong>Email:</strong> <a href="mailto:${email}">${email}</a></li>
-      <li><strong>送信日時:</strong> ${new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}</li>
     </ul>
-
-    <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; color: #0A1628; margin-top: 24px;">■ メッセージ内容</h3>
-    <div style="background-color: #f8fafc; padding: 16px; border-radius: 4px; white-space: pre-wrap; color: #334155;">${message}</div>
+    <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; color: #0A1628; margin-top: 24px;">■ 課題</h3>
+    <p style="background-color: #f8fafc; padding: 12px; border-radius: 4px; color: #334155;">${painPointsText}</p>
+    <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; color: #0A1628; margin-top: 24px;">■ Zoom希望日時</h3>
+    <p style="background-color: #f0f9ff; padding: 12px; border-radius: 4px; color: #0369a1; font-weight: bold;">
+      第1希望: ${preferredDate1}<br/>
+      ${preferredDate2 ? `第2希望: ${preferredDate2}` : ''}
+    </p>
   </div>
 </div>
         `
-      };
-
-      await transporter.sendMail(mailOptions);
-      console.log('[Contact Backend] Email successfully dispatched to representative.');
+      });
+      console.log('[Zoom Demo] Email dispatched.');
     } else {
-      console.warn('[Contact Backend] WARNING: SMTP credentials not provided. Email not sent.');
+      console.log('[Zoom Demo] DEV MODE - Email content:', { clinicType, clinicName, email, painPointsText, dateText });
     }
 
-    // 4. Send Auto-reply to User (Optional, logging for now)
-    if (priority === '一般') {
-      console.log(`[Contact Backend] Sending auto-reply to ${email}: 24時間以内に回答します`);
-    } else {
-      console.log(`[Contact Backend] Sending auto-reply to ${email}: 緊急対応中です`);
-    }
-
-    // Since this is a demonstration/baseline for the backend logic, we just return success
-    // after the "processing" is complete.
-    return NextResponse.json({ 
-      success: true, 
-      priority,
-      message: '問い合わせを受付完了しました。' 
-    });
+    return NextResponse.json({ success: true });
 
   } catch (error) {
-    console.error('[Contact Backend] Error processing request:', error);
+    console.error('[Zoom Demo] Error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

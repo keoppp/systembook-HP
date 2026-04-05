@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { Clock, ShieldAlert, HeartPulse, PiggyBank } from 'lucide-react';
 
 const benefits = [
@@ -23,11 +26,32 @@ const benefits = [
   }
 ];
 
+const specialtyTabs = [
+  {
+    label: '精神科',
+    text: '初診問診票の記入に15〜30分。スタッフが手入力、院長が紙を確認。\nこの時間、毎日発生していませんか？'
+  },
+  {
+    label: '内科・一般診療',
+    text: '電話予約の折り返し、リマインド電話、キャンセル管理。\nこの3つだけで、受付スタッフの午前中が終わります。'
+  },
+  {
+    label: '整形外科',
+    text: 'リハビリの定期予約管理、次回案内の電話。\n繰り返し業務こそ自動化で消えます。'
+  },
+  {
+    label: '日帰り外科',
+    text: '術前問診・同意書の回収、術後フォロー連絡。\n件数が増えるほど、事務の負荷が比例します。'
+  }
+];
+
 export default function BenefitsSection() {
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
     <section id="benefits" className="section-padding bg-gray-50">
       <div className="container-wide">
-        <div className="text-center max-w-3xl mx-auto mb-20 animate-slide-up">
+        <div className="text-center max-w-3xl mx-auto mb-16 animate-slide-up">
           <h2 className="text-3xl md:text-5xl font-bold text-midnight mb-6 heading-serif">
             「もう一人いたら」を、<br className="md:hidden" />仕組みで解決する
           </h2>
@@ -38,22 +62,39 @@ export default function BenefitsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {benefits.map((benefit, index) => (
-            <div 
-              key={index} 
-              className="bg-white p-8 border border-gray-100 shadow-sm hover:shadow-xl transition-shadow group relative overflow-hidden"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-gray-50 to-transparent -mr-8 -mt-8 rounded-full transition-transform group-hover:scale-150 duration-500"></div>
-              
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-midnight flex items-center justify-center rounded-sm mb-6 group-hover:bg-midnight-light transition-colors">
-                  {benefit.icon}
-                </div>
-                <h3 className="text-xl font-bold text-midnight mb-4 heading-serif">{benefit.title}</h3>
-                <p className="text-gray-600 leading-relaxed opacity-90">{benefit.description}</p>
+        {/* Specialty Tabs */}
+        <div className="max-w-3xl mx-auto mb-20">
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {specialtyTabs.map((tab, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveTab(i)}
+                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all ${
+                  activeTab === i
+                    ? 'bg-midnight text-white shadow-md'
+                    : 'bg-white text-gray-600 border border-gray-200 hover:border-midnight/30'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <div className="bg-white rounded-2xl p-8 md:p-10 border border-gray-200 shadow-sm text-center">
+            <p className="text-lg md:text-xl text-midnight font-bold leading-relaxed whitespace-pre-line">
+              {specialtyTabs[activeTab].text}
+            </p>
+          </div>
+        </div>
+
+        {/* Benefit Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {benefits.map((benefit, i) => (
+            <div key={i} className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all group">
+              <div className="w-16 h-16 rounded-xl bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold/20 transition-colors">
+                {benefit.icon}
               </div>
+              <h3 className="text-xl font-bold text-midnight mb-3 heading-serif">{benefit.title}</h3>
+              <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
             </div>
           ))}
         </div>
