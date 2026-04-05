@@ -1,0 +1,42 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#0A1628" stroke-width="32" stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <!-- Outer shell line left -->
+    <path d="M 80 120 L 80 340 Q 150 400 256 420" />
+    <!-- Outer shell line right -->
+    <path d="M 432 120 L 432 340 Q 362 400 256 420" />
+    
+    <!-- Inner page line left -->
+    <path d="M 120 160 L 120 360 Q 180 380 256 400" />
+    <!-- Inner page line right -->
+    <path d="M 392 160 L 392 360 Q 332 380 256 400" />
+    
+    <!-- Top inner spine connections -->
+    <path d="M 120 160 C 180 150 220 160 256 200" />
+    <path d="M 392 160 C 332 150 292 160 256 200" />
+    
+    <!-- Outer to inner top corner connections -->
+    <path d="M 80 120 Q 100 140 120 160" />
+    <path d="M 432 120 Q 412 140 392 160" />
+    
+    <!-- Outer to inner bottom corner connections -->
+    <path d="M 80 340 L 120 360" />
+    <path d="M 432 340 L 392 360" />
+
+    <!-- Center Spine -->
+    <path d="M 256 200 L 256 420" />
+  </g>
+  
+  <!-- Teal Cross -->
+  <g fill="#297A7C">
+    <rect x="236" y="210" width="40" height="120" rx="8" />
+    <rect x="196" y="250" width="120" height="40" rx="8" />
+  </g>
+  
+  <!-- Bubbles on Top Right -->
+  <g fill="#0A1628">
+    <circle cx="340" cy="110" r="18" />
+    <circle cx="375" cy="70" r="12" />
+    <circle cx="310" cy="55" r="8" />
+    <circle cx="380" cy="40" r="6" />
+  </g>
+</svg>
