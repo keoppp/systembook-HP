@@ -7,6 +7,7 @@ export default function SecuritySection() {
   const [showModal, setShowModal] = useState(false);
   const [wpForm, setWpForm] = useState({ wpName: '', wpClinicName: '', wpEmail: '' });
   const [wpStatus, setWpStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [wpResponseMsg, setWpResponseMsg] = useState('');
 
   const handleWpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,15 +19,39 @@ export default function SecuritySection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(wpForm),
       });
-      if (res.ok) {
-        setWpStatus('success');
-        setTimeout(() => { setShowModal(false); setWpStatus('idle'); }, 3000);
-      } else {
-        setWpStatus('error');
+
+      const rawText = await res.text();
+      console.log('[Whitepaper] Raw response:', rawText);
+
+      let parsed: any;
+      try {
+        parsed = JSON.parse(rawText);
+      } catch {
+        parsed = {};
       }
+      const result = Array.isArray(parsed) ? parsed[0] : parsed;
+
+      // エラー判定
+      const isError = result.status === 'error' || result.status === 'fail';
+      if (isError) {
+        setWpResponseMsg(result.message || '送信に失敗しました。');
+        setWpStatus('error');
+        return;
+      }
+
+      // 成功
+      setWpResponseMsg(result.message || 'ご登録のメールアドレスにDLリンクをお送りしました。');
+      setWpStatus('success');
     } catch {
+      setWpResponseMsg('通信エラーが発生しました。');
       setWpStatus('error');
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setWpStatus('idle');
+    setWpResponseMsg('');
   };
 
   return (
@@ -122,10 +147,10 @@ export default function SecuritySection() {
       {/* Whitepaper Download Modal */}
       {showModal && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowModal(false)}></div>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={handleCloseModal}></div>
           <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-in fade-in zoom-in-95 duration-300">
             <button
-              onClick={() => setShowModal(false)}
+              onClick={handleCloseModal}
               className="absolute top-4 right-4 text-gray-400 hover:text-midnight transition-colors"
             >
               <X className="w-5 h-5" />
@@ -134,8 +159,8 @@ export default function SecuritySection() {
             {wpStatus === 'success' ? (
               <div className="text-center py-8">
                 <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-midnight mb-2">ありがとうございます</h3>
-                <p className="text-gray-600 text-sm">ご登録のメールアドレスにDLリンクをお送りしました。</p>
+                <h3 className="text-xl font-bold text-midnight mb-3">ありがとうございます</h3>
+                <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">{wpResponseMsg}</p>
               </div>
             ) : (
               <>
@@ -176,7 +201,7 @@ export default function SecuritySection() {
                     />
                   </div>
                   {wpStatus === 'error' && (
-                    <p className="text-red-500 text-sm">送信に失敗しました。再度お試しください。</p>
+                    <p className="text-red-500 text-sm">{wpResponseMsg || '送信に失敗しました。再度お試しください。'}</p>
                   )}
                   <button
                     type="submit"
