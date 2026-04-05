@@ -18,8 +18,8 @@ const notoSerif = Noto_Serif_JP({
 });
 
 export const metadata: Metadata = {
-  title: 'SystemBook Medical | 医療DX自動化ソリューション',
-  description: 'システムに運用を合わせる時代は終わりました。貴院の「やり方」をそのままに、AIとn8nで業務を最適化する。医療情報ガイドライン完全準拠のセキュアな医院業務自動化。',
+  title: '【既存電子カルテ対応】クリニックの業務自動化・医療DXシステム | SystemBook Medical',
+  description: '神戸大学医学部生が開発する医療DXソリューション。今の電子カルテはそのままに、予約・問診・FAXなどの事務作業をAIとn8nで自動化します。3省庁2ガイドライン完全準拠。サーバーレス構成により導入費用は他社平均の2/3。AI即時見積もりをご用意しています。',
 };
 
 export default function RootLayout({
