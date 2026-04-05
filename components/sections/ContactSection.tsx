@@ -183,33 +183,112 @@ export default function ContactSection() {
               </div>
 
               {/* Zoom希望日時 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-6">
+                {/* 第1希望 */}
                 <div>
-                  <label htmlFor="preferredDate1" className="block text-sm font-bold text-midnight mb-2">
+                  <label className="block text-sm font-bold text-midnight mb-3">
                     Zoom希望日時（第1希望） <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="text"
-                    id="preferredDate1"
-                    value={formData.preferredDate1}
-                    onChange={e => setFormData({ ...formData, preferredDate1: e.target.value })}
-                    placeholder="例: 4/10 14:00〜"
-                    className="w-full px-4 py-3 rounded border border-gray-300 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all"
-                  />
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs text-gray-400 mb-1">日付</label>
+                      <input
+                        type="date"
+                        value={formData.preferredDate1.split(' ')[0] || ''}
+                        min={new Date().toISOString().split('T')[0]}
+                        onChange={e => {
+                          const time = formData.preferredDate1.split(' ')[1] || '';
+                          setFormData({ ...formData, preferredDate1: `${e.target.value} ${time}`.trim() });
+                        }}
+                        className="w-full px-4 py-3 rounded border border-gray-300 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-400 mb-1">時間帯</label>
+                      <select
+                        value={formData.preferredDate1.split(' ')[1] || ''}
+                        onChange={e => {
+                          const date = formData.preferredDate1.split(' ')[0] || '';
+                          setFormData({ ...formData, preferredDate1: `${date} ${e.target.value}`.trim() });
+                        }}
+                        className="w-full px-4 py-3 rounded border border-gray-300 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all bg-white"
+                      >
+                        <option value="">選択</option>
+                        <option value="09:00〜">09:00〜</option>
+                        <option value="09:30〜">09:30〜</option>
+                        <option value="10:00〜">10:00〜</option>
+                        <option value="10:30〜">10:30〜</option>
+                        <option value="11:00〜">11:00〜</option>
+                        <option value="11:30〜">11:30〜</option>
+                        <option value="12:00〜">12:00〜</option>
+                        <option value="13:00〜">13:00〜</option>
+                        <option value="13:30〜">13:30〜</option>
+                        <option value="14:00〜">14:00〜</option>
+                        <option value="14:30〜">14:30〜</option>
+                        <option value="15:00〜">15:00〜</option>
+                        <option value="15:30〜">15:30〜</option>
+                        <option value="16:00〜">16:00〜</option>
+                        <option value="16:30〜">16:30〜</option>
+                        <option value="17:00〜">17:00〜</option>
+                        <option value="17:30〜">17:30〜</option>
+                        <option value="18:00〜">18:00〜</option>
+                      </select>
+                    </div>
+                  </div>
                   {errors.preferredDate1 && <p className="text-red-500 text-xs mt-1">{errors.preferredDate1}</p>}
                 </div>
+
+                {/* 第2希望 */}
                 <div>
-                  <label htmlFor="preferredDate2" className="block text-sm font-bold text-midnight mb-2">
+                  <label className="block text-sm font-bold text-midnight mb-3">
                     Zoom希望日時（第2希望）
                   </label>
-                  <input
-                    type="text"
-                    id="preferredDate2"
-                    value={formData.preferredDate2}
-                    onChange={e => setFormData({ ...formData, preferredDate2: e.target.value })}
-                    placeholder="例: 4/12 10:00〜"
-                    className="w-full px-4 py-3 rounded border border-gray-300 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all"
-                  />
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs text-gray-400 mb-1">日付</label>
+                      <input
+                        type="date"
+                        value={formData.preferredDate2.split(' ')[0] || ''}
+                        min={new Date().toISOString().split('T')[0]}
+                        onChange={e => {
+                          const time = formData.preferredDate2.split(' ')[1] || '';
+                          setFormData({ ...formData, preferredDate2: `${e.target.value} ${time}`.trim() });
+                        }}
+                        className="w-full px-4 py-3 rounded border border-gray-300 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-400 mb-1">時間帯</label>
+                      <select
+                        value={formData.preferredDate2.split(' ')[1] || ''}
+                        onChange={e => {
+                          const date = formData.preferredDate2.split(' ')[0] || '';
+                          setFormData({ ...formData, preferredDate2: `${date} ${e.target.value}`.trim() });
+                        }}
+                        className="w-full px-4 py-3 rounded border border-gray-300 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all bg-white"
+                      >
+                        <option value="">選択</option>
+                        <option value="09:00〜">09:00〜</option>
+                        <option value="09:30〜">09:30〜</option>
+                        <option value="10:00〜">10:00〜</option>
+                        <option value="10:30〜">10:30〜</option>
+                        <option value="11:00〜">11:00〜</option>
+                        <option value="11:30〜">11:30〜</option>
+                        <option value="12:00〜">12:00〜</option>
+                        <option value="13:00〜">13:00〜</option>
+                        <option value="13:30〜">13:30〜</option>
+                        <option value="14:00〜">14:00〜</option>
+                        <option value="14:30〜">14:30〜</option>
+                        <option value="15:00〜">15:00〜</option>
+                        <option value="15:30〜">15:30〜</option>
+                        <option value="16:00〜">16:00〜</option>
+                        <option value="16:30〜">16:30〜</option>
+                        <option value="17:00〜">17:00〜</option>
+                        <option value="17:30〜">17:30〜</option>
+                        <option value="18:00〜">18:00〜</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
 
