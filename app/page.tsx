@@ -4,6 +4,7 @@ import BenefitsSection from '@/components/sections/BenefitsSection';
 import BeforeAfterSection from '@/components/sections/BeforeAfterSection';
 import ROISection from '@/components/sections/ROISection';
 import SecuritySection from '@/components/sections/SecuritySection';
+import RoadmapSection from '@/components/sections/RoadmapSection';
 import EstimatorSection from '@/components/sections/EstimatorSection';
 import ContactSection from '@/components/sections/ContactSection';
 import ProfileSection from '@/components/sections/ProfileSection';
@@ -18,6 +19,7 @@ export default function Home() {
       <BeforeAfterSection />
       <ROISection />
       <SecuritySection />
+      <RoadmapSection />
       <EstimatorSection />
       <ContactSection />
       <ProfileSection />
@@ -25,3 +27,4 @@ export default function Home() {
     </>
   );
 }
+
