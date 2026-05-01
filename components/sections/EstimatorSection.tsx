@@ -41,8 +41,11 @@ export default function EstimatorSection() {
           </h2>
           <div className="w-16 h-1 bg-gold mx-auto mb-8"></div>
           <p className="text-lg text-platinum/80 leading-relaxed max-w-2xl mx-auto">
-            クリニックの課題や必要な機能に合わせて、3つのプランをご用意しています。
+            クリニックの課題や必要な機能に合わせて、以下のモジュールをご用意しています。
           </p>
+          <div className="inline-block bg-gold/10 text-gold border border-gold/30 px-6 py-2 rounded-full text-sm font-bold tracking-wider mt-6">
+            💡 各モジュールは自由に組み合わせて導入可能です（例：HP作成＋業務自動化）
+          </div>
         </div>
 
         {/* Pricing Cards */}
@@ -55,7 +58,7 @@ export default function EstimatorSection() {
                 </div>
               )}
               <div className={`p-6 lg:p-8 flex-1 ${plan.recommend ? 'pt-12' : ''}`}>
-                <div className={`text-sm font-bold tracking-widest uppercase mb-2 ${plan.recommend ? 'text-gold' : 'text-gray-400'}`}>Plan {['A', 'B', 'C'][idx]}</div>
+                <div className={`text-sm font-bold tracking-widest uppercase mb-2 ${plan.recommend ? 'text-gold' : 'text-gray-400'}`}>Module {['1', '2', '3'][idx]}</div>
                 <h3 className="text-xl lg:text-2xl font-bold text-midnight mb-4 heading-serif whitespace-nowrap">{plan.name}</h3>
                 <div className="flex items-baseline gap-1 mb-1">
                   <span className="text-3xl lg:text-4xl font-black text-midnight tracking-tight">{plan.price}</span>
