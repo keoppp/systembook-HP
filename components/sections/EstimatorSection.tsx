@@ -2,19 +2,32 @@
 
 import { ArrowRight, Check, Sparkles } from 'lucide-react';
 
-const PLAN_A = {
-  name: 'スタンダード',
-  price: '20〜50',
-  monthly: '2〜3',
-  features: ['予約自動化', 'Web問診', 'リマインド連絡', '受付フロー構築'],
-};
-
-const PLAN_B = {
-  name: 'プレミアム',
-  price: '50〜80',
-  monthly: '3〜5',
-  features: ['スタンダードの全内容', '事務ワークフロー高度化', '優先サポート', 'カスタムAPI連携'],
-};
+const PLANS = [
+  {
+    name: 'HP作成',
+    price: '20',
+    suffix: '万円',
+    subtext: '（初期費用のみ）',
+    features: ['オリジナルデザイン', 'スマホ最適化対応', 'お知らせ更新機能', '基本的なSEO対策'],
+    recommend: false
+  },
+  {
+    name: 'HP＋予約システム',
+    price: '30',
+    suffix: '万円',
+    subtext: '（初期費用のみ）',
+    features: ['HP作成プランの全内容', '24時間Web予約機能', 'Web問診システム', 'リマインド連絡'],
+    recommend: true
+  },
+  {
+    name: '業務自動化',
+    price: '20〜100',
+    suffix: '万円',
+    subtext: '※ご要望・内容に応じて変動',
+    features: ['HP・予約プランの機能', 'FAXや紙のデータ化', '事務ワークフロー構築', 'その他の課題解決'],
+    recommend: false
+  }
+];
 
 export default function EstimatorSection() {
   return (
@@ -28,75 +41,50 @@ export default function EstimatorSection() {
           </h2>
           <div className="w-16 h-1 bg-gold mx-auto mb-8"></div>
           <p className="text-lg text-platinum/80 leading-relaxed max-w-2xl mx-auto">
-            クリニックの規模と必要な機能に合わせて、2つのプランをご用意しています。
+            クリニックの課題や必要な機能に合わせて、3つのプランをご用意しています。
           </p>
         </div>
 
         {/* Pricing Cards */}
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          
-          {/* Plan A */}
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-            <div className="p-8 md:p-10">
-              <div className="text-sm font-bold text-gray-400 tracking-widest uppercase mb-2">Plan A</div>
-              <h3 className="text-2xl font-bold text-midnight mb-4 heading-serif">{PLAN_A.name}</h3>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-black text-midnight">{PLAN_A.price}</span>
-                <span className="text-lg text-gray-600">万円</span>
-                <span className="text-sm text-gray-400 ml-1">（初期）</span>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {PLANS.map((plan, idx) => (
+            <div key={idx} className={`bg-white rounded-2xl shadow-xl overflow-hidden relative flex flex-col ${plan.recommend ? 'border-2 border-gold scale-105 z-10' : 'border border-gray-100'}`}>
+              {plan.recommend && (
+                <div className="absolute top-0 left-0 right-0 bg-gold text-white text-center py-1.5 text-xs font-bold tracking-widest">
+                  RECOMMEND
+                </div>
+              )}
+              <div className={`p-6 lg:p-8 flex-1 ${plan.recommend ? 'pt-12' : ''}`}>
+                <div className={`text-sm font-bold tracking-widest uppercase mb-2 ${plan.recommend ? 'text-gold' : 'text-gray-400'}`}>Plan {['A', 'B', 'C'][idx]}</div>
+                <h3 className="text-xl lg:text-2xl font-bold text-midnight mb-4 heading-serif whitespace-nowrap">{plan.name}</h3>
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-3xl lg:text-4xl font-black text-midnight tracking-tight">{plan.price}</span>
+                  <span className="text-base lg:text-lg text-gray-600">{plan.suffix}</span>
+                </div>
+                <div className="text-xs lg:text-sm text-gray-500 mb-8">
+                  {plan.subtext}
+                </div>
+                <div className="space-y-3">
+                  {plan.features.map((f, i) => (
+                    <div key={i} className="flex items-start gap-2 lg:gap-3">
+                      <Check className="w-4 h-4 lg:w-5 lg:h-5 text-gold shrink-0 mt-0.5" />
+                      <span className="text-sm lg:text-base text-gray-700 leading-tight">{f}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="text-sm text-gray-500 mb-8">
-                ＋ 月額 {PLAN_A.monthly}万円
-              </div>
-              <div className="space-y-3">
-                {PLAN_A.features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-gold shrink-0" />
-                    <span className="text-gray-700">{f}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="px-8 pb-8">
-              <a href="#contact" className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-midnight font-bold py-4 rounded-sm transition-all group">
-                Zoomデモで詳しく聞く
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
-          </div>
-
-          {/* Plan B */}
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-gold relative">
-            <div className="absolute top-0 left-0 right-0 bg-gold text-white text-center py-1.5 text-xs font-bold tracking-widest">
-              RECOMMEND
-            </div>
-            <div className="p-8 md:p-10 pt-12">
-              <div className="text-sm font-bold text-gold tracking-widest uppercase mb-2">Plan B</div>
-              <h3 className="text-2xl font-bold text-midnight mb-4 heading-serif">{PLAN_B.name}</h3>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-black text-midnight">{PLAN_B.price}</span>
-                <span className="text-lg text-gray-600">万円</span>
-                <span className="text-sm text-gray-400 ml-1">（初期）</span>
-              </div>
-              <div className="text-sm text-gray-500 mb-8">
-                ＋ 月額 {PLAN_B.monthly}万円
-              </div>
-              <div className="space-y-3">
-                {PLAN_B.features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <Check className="w-5 h-5 text-gold shrink-0" />
-                    <span className="text-gray-700">{f}</span>
-                  </div>
-                ))}
+              <div className="px-6 lg:px-8 pb-8">
+                <a href="#contact" className={`w-full flex items-center justify-center gap-2 font-bold py-4 rounded-sm transition-all group ${
+                  plan.recommend 
+                    ? 'bg-midnight hover:bg-midnight-light text-white shadow-lg' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-midnight'
+                }`}>
+                  <span className="text-sm lg:text-base">デモで詳しく聞く</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
               </div>
             </div>
-            <div className="px-8 pb-8">
-              <a href="#contact" className="w-full flex items-center justify-center gap-2 bg-midnight hover:bg-midnight-light text-white font-bold py-4 rounded-sm transition-all group shadow-lg">
-                Zoomデモで詳しく聞く
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Early Adopter Benefit */}
