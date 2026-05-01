@@ -11,6 +11,33 @@ export default function EstimatorSection() {
   const basePrice = (hasHp ? 20 : 0) + (hasReservation ? 10 : 0);
   const totalPrice = basePrice + automationValue;
 
+  let automationTier = null;
+  if (automationValue >= 20 && automationValue <= 30) {
+    automationTier = {
+      level: "エントリー",
+      title: "公式LINE 窓口自動化パッケージ",
+      example: "24時間365日稼働する「AI窓口」を構築します。患者さんや顧客からのよくある質問（FAQ）への自動回答、予約受付、リマインド送信をLINE Messaging APIで完結。",
+      merit: "受付スタッフの電話応対時間を50%削減。予約の取りこぼしを防ぎます。",
+      compare: "一般的な開発相場：50万円〜 ➔ 当社なら約40%OFF"
+    };
+  } else if (automationValue >= 40 && automationValue <= 60) {
+    automationTier = {
+      level: "スタンダード",
+      title: "業務アプリ間 データ連携DX",
+      example: "n8nを活用し、バラバラなツール（顧客管理・会計・チャット等）を自動連携。例えば「Webフォームに入力された内容を、自動でカルテ下書きへ転記し、同時にSlackへ通知」といったフローを構築します。",
+      merit: "手入力による転記ミスをゼロにし、事務作業時間を月間数十時間カットします。",
+      compare: "一般的な開発相場：100万円〜 ➔ 当社なら約50%OFF"
+    };
+  } else if (automationValue >= 70 && automationValue <= 100) {
+    automationTier = {
+      level: "アドバンス",
+      title: "AI・ドキュメント解析自動化",
+      example: "最新のLLM（大規模言語モデル）を業務に組み込みます。音声データの議事録作成、膨大なPDF資料の要約、専門文書のドラフト作成などを自動化。AWSを活用したセキュアな環境で構築します。",
+      merit: "専門職が「考える・判断する」時間だけに集中できる環境を作ります。",
+      compare: "一般的な開発相場：200万円〜 ➔ 当社なら約50%以上OFF"
+    };
+  }
+
   return (
     <section id="estimate" className="section-padding bg-midnight relative overflow-hidden">
       <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#C0C8D4 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
@@ -109,6 +136,31 @@ export default function EstimatorSection() {
                       <span className={automationValue === 100 ? "text-[#C1A476]" : ""}>100万</span>
                     </div>
                   </div>
+
+                  {/* Dynamic Automation Tier Details */}
+                  {automationTier && (
+                    <div className="mt-6 bg-white p-4 md:p-5 rounded-lg border border-gold/30 shadow-sm">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="bg-gold text-white text-[10px] font-bold px-2 py-0.5 rounded tracking-widest">{automationTier.level}</span>
+                        <span className="font-bold text-midnight text-sm md:text-base">{automationTier.title}</span>
+                      </div>
+                      <div className="space-y-3 text-xs md:text-sm">
+                        <div>
+                          <span className="text-gray-500 font-bold block mb-1 text-[10px] md:text-xs">【具体例】</span>
+                          <p className="text-gray-700 leading-relaxed">{automationTier.example}</p>
+                        </div>
+                        <div>
+                          <span className="text-gold font-bold block mb-1 text-[10px] md:text-xs">【導入メリット】</span>
+                          <p className="text-gray-800 font-medium">{automationTier.merit}</p>
+                        </div>
+                        <div className="bg-gray-50 p-2 md:p-3 rounded border border-gray-100 flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
+                          <span className="text-gray-500 font-bold text-[10px] md:text-xs">他社比較:</span>
+                          <span className="text-midnight font-bold">{automationTier.compare}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                 </div>
 
               </div>
