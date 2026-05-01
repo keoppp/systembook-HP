@@ -38,8 +38,8 @@ export default function WhySection() {
                 <h3 className="text-2xl font-bold text-white font-serif">田崎 健斗</h3>
                 <p className="text-sm text-platinum/80">神戸大学医学部4年</p>
               </div>
-              <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400 font-serif text-6xl">T</span>
+              <div className="absolute inset-0 bg-gray-200">
+                <img src="/images/director.jpg" alt="田崎 健斗" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
